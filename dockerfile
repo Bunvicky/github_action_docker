@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y curl unzip
 RUN curl -L https://www.free-css.com/free-css-templates/page296/healet 
 
 # Extract the downloaded file
-RUN unzip healet.zip && rm healet.zip
+#RUN unzip healet.zip && rm healet.zip
 
 # Set the command to run when the container starts
 CMD ["httpd-foreground"]
