@@ -8,10 +8,10 @@ WORKDIR /usr/local/apache2/htdocs
 RUN apt-get update && apt-get install -y curl unzip
 
 # Download the file from the specified URL
-RUN curl -L https://www.free-css.com/free-css-templates/page296/healet -o template.zip
+RUN curl -L https://www.free-css.com/free-css-templates/page296/healet 
 
 # Extract the downloaded file
-RUN unzip template.zip && rm template.zip
+RUN unzip healet.zip && rm healet.zip
 
 # Set the command to run when the container starts
 CMD ["httpd-foreground"]
