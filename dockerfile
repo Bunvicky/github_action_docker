@@ -1,20 +1,17 @@
-FROM golang:1.17-buster AS build
+# Use the official Apache image
+FROM httpd:latest
 
-WORKDIR /app
+# Set the working directory
+WORKDIR /usr/local/apache2/htdocs
 
-COPY go.mod ./
-COPY go.sum ./
+# Install curl and unzip (or other necessary tools based on your file type)
+RUN apt-get update && apt-get install -y curl unzip
 
-COPY *.go ./
+# Download the file from the specified URL
+RUN curl -L https://www.free-css.com/free-css-templates/page296/healet -o template.zip
 
-RUN go build -o /webapp
+# Extract the downloaded file
+RUN unzip template.zip && rm template.zip
 
-FROM gcr.io/distroless/base-debian10
-
-WORKDIR /
-
-COPY --from=build /webapp /webapp
-
-USER nonroot:nonroot
-
-ENTRYPOINT ["/webapp"]
+# Set the command to run when the container starts
+CMD ["httpd-foreground"]
