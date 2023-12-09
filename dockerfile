@@ -4,18 +4,17 @@ WORKDIR /app
 
 COPY go.mod ./
 COPY go.sum ./
-RUN go mod download
 
 COPY *.go ./
 
-RUN go build -o /my_demo
+RUN go build -o /webapp
 
 FROM gcr.io/distroless/base-debian10
 
 WORKDIR /
 
-COPY --from=build /my_demo /my_demo
+COPY --from=build /webapp /webapp
 
 USER nonroot:nonroot
 
-ENTRYPOINT ["/my_demo"]
+ENTRYPOINT ["/webapp"]
